@@ -1,10 +1,15 @@
 import Head from 'next/head'
 
 import Layout, { SITE_TITLE } from '@/components/layout'
+import { getSortedPostsData } from '@/lib/posts'
 
 import utilStyles from '@/styles/utils.module.css'
 
-const Home = () => (
+interface IHomeProps {
+  allPostsData: ReturnType<typeof getSortedPostsData>
+}
+
+const Home: React.FC<IHomeProps> = ({ allPostsData }) => (
   <Layout home>
     <Head>
       <title>{SITE_TITLE}</title>
@@ -16,7 +21,42 @@ const Home = () => (
         <a href="https://nextjs.org/learn">our Next.js tutorial</a>.)
       </p>
     </section>
+    <section className={`${utilStyles.headingMd} ${utilStyles.padding1px}`}>
+      <h2 className={utilStyles.headingLg}>Blog</h2>
+      <ul className={utilStyles.list}>
+        {allPostsData.map(({ id, date, title }) => (
+          <li className={utilStyles.listItem} key={id}>
+            <>
+              {title}
+              <br />
+              {id}
+              <br />
+              {date}
+            </>
+          </li>
+        ))}
+      </ul>
+    </section>
   </Layout>
 )
+
+export const getStaticProps = async () => {
+  const allPostsData = getSortedPostsData()
+  return {
+    props: {
+      allPostsData,
+    },
+  }
+}
+
+// can pass context
+// export const getServerSideProps = async () => {
+//   const allPostsData = getSortedPostsData()
+//   return {
+//     props: {
+//       allPostsData,
+//     },
+//   }
+// }
 
 export default Home
