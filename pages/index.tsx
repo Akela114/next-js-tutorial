@@ -1,5 +1,7 @@
 import Head from 'next/head'
+import Link from 'next/link'
 
+import Date from '@/components/date'
 import Layout, { SITE_TITLE } from '@/components/layout'
 import { getSortedPostsData } from '@/lib/posts'
 
@@ -26,13 +28,11 @@ const Home: React.FC<IHomeProps> = ({ allPostsData }) => (
       <ul className={utilStyles.list}>
         {allPostsData.map(({ id, date, title }) => (
           <li className={utilStyles.listItem} key={id}>
-            <>
-              {title}
-              <br />
-              {id}
-              <br />
-              {date}
-            </>
+            <Link href={`/posts/${id}`}>{title}</Link>
+            <br />
+            <small className={utilStyles.lightText}>
+              <Date dateString={date} />
+            </small>
           </li>
         ))}
       </ul>
