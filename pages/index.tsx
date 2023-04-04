@@ -10,7 +10,7 @@ const Home = () => (
       <title>{SITE_TITLE}</title>
     </Head>
     <section className={utilStyles.headingMd}>
-      <p>Hello, I'm Oleg</p>
+      <p>Hello, I&apos;m Oleg</p>
       <p>
         (This is a sample website - you’ll be building a site like this on{' '}
         <a href="https://nextjs.org/learn">our Next.js tutorial</a>.)
